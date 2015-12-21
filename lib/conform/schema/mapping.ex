@@ -45,6 +45,7 @@ defmodule Conform.Schema.Mapping do
     case Keyword.keyword?(mapping) do
       false -> raise Conform.Schema.SchemaError, message: "Invalid mapping for #{name}: `#{Macro.to_string(mapping)}`."
       true  ->
+        IO.puts "from quoted: name: #{name} :: mapping: #{inspect mapping}"
         {mapping, _} = Code.eval_quoted(mapping)
         do_from(mapping, %Mapping{name: Atom.to_string(name)})
     end
